@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 
 const NAV_LINKS = [
   { href: "/explore", label: "Explore" },
@@ -15,8 +15,8 @@ const NAV_LABELS = ["How it Works","Features","Reviews"];
 
 const Header = () => {
   const { isSignedIn } = useUser();
-  const searchParams = useSearchParams();
-  const openSignIn = searchParams.get("signin");
+  // const searchParams = useSearchParams();
+  // const openSignIn = searchParams.get("signin");
   const [menuOpen, setMenuOpen] = useState(false);
 
 
