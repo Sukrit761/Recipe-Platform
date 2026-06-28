@@ -376,9 +376,11 @@ const toggleFav = (id, e) => {
 };
   const deleteRecipe = async (id) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/cookbook/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+  `${process.env.NEXT_PUBLIC_API_URL}/api/cookbook/${id}`,
+  {
+    method: "DELETE",
+  });
 
     if (!res.ok) throw new Error("Failed to delete");
 
@@ -413,21 +415,24 @@ const toggleFav = (id, e) => {
 
   const { user, isLoaded } = useUser();
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
+ useEffect(() => {
   if (!isLoaded || !user) return;
 
   const fetchRecipes = async () => {
     try {
+      setLoading(true);
+
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/generate`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/cookbook/${user.id}`
       );
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch recipes");
+      }
 
       const data = await res.json();
 
-      console.log(data);
-
       setRecipes(data);
-
     } catch (err) {
       console.error(err);
     } finally {
